@@ -1,0 +1,22 @@
+services:
+  command-partner:
+    tty: true
+    build:
+      context: ..
+      dockerfile: build/Dockerfile
+      args:
+        TZ: ${TZ:-Asia/Tokyo}
+    working_dir: /workspace
+    volumes:
+      - ..:/workspace
+      - go-dev-bashhistory:/commandhistory
+      - ~/.ssh:/home/vscode/.ssh:ro
+      - ~/.gitconfig:/home/vscode/.gitconfig
+    environment:
+      - TZ=${TZ:-Asia/Tokyo}
+    user: vscode
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+volumes:
+  go-dev-bashhistory:
