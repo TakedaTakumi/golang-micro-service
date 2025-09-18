@@ -1,5 +1,5 @@
 # Go開発環境
-FROM golang:1.25
+FROM golang:1.25 AS base
 
 ARG TZ
 ENV TZ="$TZ"
@@ -11,7 +11,7 @@ ARG USER_GID=$USER_UID
 # 開発コンテナであることを示す環境変数を設定
 ENV DEVCONTAINER=true
 
-WORKDIR /app
+WORKDIR /workspace
 
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
@@ -23,5 +23,9 @@ RUN apt-get update && apt-get install -y \
 
 USER $USERNAME
 
-# COPY go.mod go.sum ./
-# RUN go mod download
+COPY go.mod go.sum ./
+RUN go mod download
+
+FROM base AS dev-command-partner
+
+CMD ["sh", "-c", "go run cmd/command/partner/main.go"]

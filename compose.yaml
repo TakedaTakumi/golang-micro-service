@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: dev-command-partner
       args:
         TZ: ${TZ:-Asia/Tokyo}
     working_dir: /workspace
