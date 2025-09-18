@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	config "golang-micro-service/configs/command/partner"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -10,5 +13,5 @@ func main() {
 		return c.String(200, "Hello, Command Partner!")
 	})
 
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", config.PORT)))
 }
