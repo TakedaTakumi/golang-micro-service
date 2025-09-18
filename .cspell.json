@@ -1,0 +1,18 @@
+{
+  "language": "en",
+  "words": [
+    "devcontainer",
+  ],
+  "ignoreWords": [
+    "labstack"
+  ],
+  "ignorePaths": [
+    "vscode-extension",
+    ".git/objects",
+    ".vscode",
+    ".vscode-insiders",
+    "devcontainer.json",
+    "go.mod",
+    "go.sum"
+  ]
+}
