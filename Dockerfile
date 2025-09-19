@@ -29,3 +29,7 @@ RUN go mod download
 FROM base AS dev-command-partner
 
 CMD ["sh", "-c", "go run cmd/command/partner/main.go"]
+
+FROM base AS dev-query-partner
+
+CMD ["sh", "-c", "go run cmd/query/partner/main.go"]

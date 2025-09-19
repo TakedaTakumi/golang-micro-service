@@ -10,7 +10,6 @@ services:
     working_dir: /workspace
     volumes:
       - .:/workspace
-      - go-dev-bashhistory:/commandhistory
       - ~/.ssh:/home/vscode/.ssh:ro
       - ~/.gitconfig:/home/vscode/.gitconfig
     environment:
@@ -22,5 +21,25 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
-volumes:
-  go-dev-bashhistory:
+  query-partner:
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev-query-partner
+      args:
+        TZ: ${TZ:-Asia/Tokyo}
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - ~/.ssh:/home/vscode/.ssh:ro
+      - ~/.gitconfig:/home/vscode/.gitconfig
+    environment:
+      - TZ=${TZ:-Asia/Tokyo}
+      - PORT=${QUERY_PARTNER_PORT:?Not set}
+    ports:
+      - "${QUERY_PARTNER_PORT}:${QUERY_PARTNER_PORT}"
+    user: vscode
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
