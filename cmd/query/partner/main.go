@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	config "golang-micro-service/configs/command/partner"
+	config "golang-micro-service/configs/query/partner"
 
 	"github.com/labstack/echo/v4"
 )
