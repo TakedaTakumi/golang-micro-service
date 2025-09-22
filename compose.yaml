@@ -1,0 +1,45 @@
+services:
+  command-partner:
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev-command-partner
+      args:
+        TZ: ${TZ:-Asia/Tokyo}
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - ~/.ssh:/home/vscode/.ssh:ro
+      - ~/.gitconfig:/home/vscode/.gitconfig
+    environment:
+      - TZ=${TZ:-Asia/Tokyo}
+      - PORT=${COMMAND_PARTNER_PORT:?Not set}
+    ports:
+      - "${COMMAND_PARTNER_PORT}:${COMMAND_PARTNER_PORT}"
+    user: vscode
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+  query-partner:
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev-query-partner
+      args:
+        TZ: ${TZ:-Asia/Tokyo}
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - ~/.ssh:/home/vscode/.ssh:ro
+      - ~/.gitconfig:/home/vscode/.gitconfig
+    environment:
+      - TZ=${TZ:-Asia/Tokyo}
+      - PORT=${QUERY_PARTNER_PORT:?Not set}
+    ports:
+      - "${QUERY_PARTNER_PORT}:${QUERY_PARTNER_PORT}"
+    user: vscode
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
